@@ -1,0 +1,190 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BPM Tests",
+		"_postman_id": "ebaeaaa6-e02c-b648-3a8e-72f68d3c218d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Celsius to Fahrenheit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"15 Celsius == 59 Fahrenheit\"] = jsonData.data.data.fahrenheit === 59;",
+							"tests[\"Response time is less than 2 seconds\"] = responseTime < 2000;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://linux-bpm-1:9443/rest/bpm/wle/v1/service/UTE%40WS Celsius to Fahrenheit?action=start&params={\"celsius\":\"15\"}&createTask=false&parts=all",
+					"protocol": "https",
+					"host": [
+						"linux-bpm-1"
+					],
+					"port": "9443",
+					"path": [
+						"rest",
+						"bpm",
+						"wle",
+						"v1",
+						"service",
+						"UTE%40WS Celsius to Fahrenheit"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "start",
+							"equals": true,
+							"description": "Action"
+						},
+						{
+							"key": "params",
+							"value": "{\"celsius\":\"15\"}",
+							"equals": true,
+							"description": "Method input parameters"
+						},
+						{
+							"key": "createTask",
+							"value": "false",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "parts",
+							"value": "all",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic d2FzYWRtaW46d2FzYWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var schema = {",
+							"    \"type\" : \"object\",",
+							"    \"properties\" : {",
+							"        \"data\" : {",
+							"            \"type\" : \"object\",",
+							"            \"properties\" : {",
+							"                \"data\" : {",
+							"                    \"type\" : \"object\",",
+							"                    \"properties\" : {",
+							"                        \"users\" : {",
+							"                            \"type\" : \"object\",",
+							"                            \"properties\" : {",
+							"                                \"items\" : {",
+							"                                    \"type\" : \"array\",",
+							"                                    \"items\" : {",
+							"                                        \"anyOf\": [",
+							"                                            {",
+							"                                                \"type\" :\"object\",",
+							"                                                \"properties\" : {",
+							"                                                    \"name\" : { \"type\" : \"string\" },",
+							"                                                    \"value\" : { \"type\" : \"string\", \"pattern\": \"^[0-9]+$\" }",
+							"                                                }            ",
+							"                                            }",
+							"                                        ]",
+							"                                    }",
+							"                                }",
+							"                            }",
+							"                        }",
+							"                    }",
+							"                }",
+							"            }",
+							"        }",
+							"    }",
+							"};",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"Name is string and Value is integer\"] = tv4.validate(data, schema);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://linux-bpm-1:9443/rest/bpm/wle/v1/service/UTE%40Retrieve users?action=start&params=&createTask=false&parts=all",
+					"protocol": "https",
+					"host": [
+						"linux-bpm-1"
+					],
+					"port": "9443",
+					"path": [
+						"rest",
+						"bpm",
+						"wle",
+						"v1",
+						"service",
+						"UTE%40Retrieve users"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "start",
+							"equals": true,
+							"description": "Action"
+						},
+						{
+							"key": "params",
+							"value": "",
+							"equals": true,
+							"description": "Method input parameters"
+						},
+						{
+							"key": "createTask",
+							"value": "false",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "parts",
+							"value": "all",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic d2FzYWRtaW46d2FzYWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
